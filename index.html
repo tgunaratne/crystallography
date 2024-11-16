@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystallography Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .explanation {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+        .timer {
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 10px;
+        }
+        #playAgainButton {
+            background-color: red;
+        }
+        #playAgainButton:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crystallography Quiz</h1>
+        <div id="timer" class="timer"></div>
+        <div id="question"></div>
+        <div id="options"></div>
+        <div class="message" id="message"></div>
+        <div class="explanation" id="explanation"></div>
+        <div class="score" id="score"></div>
+        <button id="nextButton" onclick="nextQuestion()">Next Question</button>
+        <button id="playAgainButton" onclick="startGame()" style="display: none;">Play Again</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                gemstone: "Corundum",
+                question: "What is the crystal system of Corundum?",
+                options: ["Hexagonal", "Trigonal", "Tetragonal", "Orthorhombic"],
+                correct: "Trigonal",
+                explanation: "Answer: Trigonal crystal system."
+            },
+            {
+                gemstone: "Garnet",
+                question: "What is the crystal system of Garnet?",
+                options: ["Hexagonal", "Tetragonal", "Cubic", "Triclinic"],
+                correct: "Cubic",
+                explanation: "Answer: Cubic crystal system."
+            },
+            {
+                gemstone: "Diamond",
+                question: "What is the crystal system of Diamond?",
+                options: ["Hexagonal", "Cubic", "Trigonal", "Monoclinic"],
+                correct: "Cubic",
+                explanation: "Answer: Cubic crystal system."
+            },
+            {
+                gemstone: "Spinel",
+                question: "What is the crystal system of Spinel?",
+                options: ["Orthorhombic", "Trigonal", "Hexagonal", "Cubic"],
+                correct: "Cubic",
+                explanation: "Answer: Cubic crystal system."
+            },
+            {
+                gemstone: "Fluorite",
+                question: "What is the crystal system of Fluorite?",
+                options: ["Monoclinic", "Triclinic", "Cubic", "Tetragonal"],
+                correct: "Cubic",
+                explanation: "Answer: Cubic crystal system."
+            },
+            {
+                gemstone: "Zircon",
+                question: "What is the crystal system of Zircon?",
+                options: ["Hexagonal", "Trigonal", "Tetragonal", "Monoclinic"],
+                correct: "Tetragonal",
+                explanation: "Answer: Tetragonal crystal system."
+            },
+            {
+                gemstone: "Rutile",
+                question: "What is the crystal system of Rutile?",
+                options: ["Cubic", "Trigonal", "Tetragonal", "Orthorhombic"],
+                correct: "Tetragonal",
+                explanation: "Answer: Tetragonal crystal system."
+            },
+            {
+                gemstone: "Orthoclase Feldspar",
+                question: "What is the crystal system of Orthoclase Feldspar?",
+                options: ["Monoclinic", "Trigonal", "Orthorhombic", "Hexagonal"],
+                correct: "Monoclinic",
+                explanation: "Answer: Monoclinic crystal system."
+            }
+        ];
+
+        let shuffledQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timerInterval;
+        const timerDuration = 15;
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function loadQuestion() {
+            const question = shuffledQuestions[currentQuestionIndex];
+            document.getElementById("question").innerHTML = `<strong>${question.question}</strong>`;
+            const options = shuffleOptions(question.options, question.correct);
+            document.getElementById("options").innerHTML = `
+                <ul>
+                    ${options
+                        .map(option => `<li><button onclick="checkAnswer('${option}')">${option}</button></li>`)
+                        .join("")}
+                </ul>
+            `;
+            document.getElementById("message").textContent = "";
+            document.getElementById("explanation").textContent = "";
+            document.getElementById("timer").textContent = `Time left: ${timerDuration} seconds`;
+
+            startTimer();
+        }
+
+        function shuffleOptions(options, correctAnswer) {
+            const uniqueOptions = [...new Set(options)];
+            if (!uniqueOptions.includes(correctAnswer)) {
+                uniqueOptions.push(correctAnswer);
+            }
+            return uniqueOptions.sort(() => Math.random() - 0.5).slice(0, 4);
+        }
+
+        function checkAnswer(selected) {
+            clearInterval(timerInterval);
+            const question = shuffledQuestions[currentQuestionIndex];
+            if (selected === question.correct) {
+                document.getElementById("message").textContent = "Correct!";
+                document.getElementById("message").style.color = "green";
+                score++;
+            } else {
+                document.getElementById("message").textContent = "Incorrect!";
+                document.getElementById("message").style.color = "red";
+                document.getElementById("explanation").textContent = question.explanation;
+            }
+            document.getElementById("score").textContent = `Score: ${score}/${shuffledQuestions.length}`;
+            if (currentQuestionIndex === shuffledQuestions.length - 1) {
+                document.getElementById("nextButton").style.display = "none";
+                document.getElementById("playAgainButton").style.display = "inline-block";
+            } else {
+                document.getElementById("nextButton").style.display = "inline-block";
+            }
+        }
+
+        function nextQuestion() {
+            clearInterval(timerInterval);
+            currentQuestionIndex++;
+            if (currentQuestionIndex < shuffledQuestions.length) {
+                loadQuestion();
+            } else {
+                document.getElementById("question").textContent = "Quiz Complete!";
+                document.getElementById("options").innerHTML = "";
+                document.getElementById("message").textContent = `Final Score: ${score}/${shuffledQuestions.length}`;
+                document.getElementById("explanation").textContent = "";
+                document.getElementById("timer").textContent = "";
+                document.getElementById("nextButton").style.display = "none";
+                document.getElementById("playAgainButton").style.display = "inline-block";
+            }
+        }
+
+        function startGame() {
+            shuffledQuestions = shuffleArray(questions);
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("nextButton").style.display = "inline-block";
+            document.getElementById("playAgainButton").style.display = "none";
+            document.getElementById("score").textContent = `Score: 0/${questions.length}`;
+            loadQuestion();
+        }
+
+        function startTimer() {
+            let timeLeft = timerDuration;
+            document.getElementById("timer").textContent = `Time left: ${timeLeft} seconds`;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById("timer").textContent = `Time left: ${timeLeft} seconds`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    checkAnswer(""); // Automatically marks as incorrect when time runs out
+                }
+            }, 1000);
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
