@@ -83,64 +83,134 @@
     </div>
 
     <script>
-        const questions = [
-            {
-                gemstone: "Corundum",
-                question: "What is the crystal system of Corundum?",
-                options: ["Hexagonal", "Trigonal", "Tetragonal", "Orthorhombic"],
-                correct: "Trigonal",
-                explanation: "Answer: Trigonal crystal system."
-            },
-            {
-                gemstone: "Garnet",
-                question: "What is the crystal system of Garnet?",
-                options: ["Hexagonal", "Tetragonal", "Cubic", "Triclinic"],
-                correct: "Cubic",
-                explanation: "Answer: Cubic crystal system."
-            },
-            {
-                gemstone: "Diamond",
-                question: "What is the crystal system of Diamond?",
-                options: ["Hexagonal", "Cubic", "Trigonal", "Monoclinic"],
-                correct: "Cubic",
-                explanation: "Answer: Cubic crystal system."
-            },
-            {
-                gemstone: "Spinel",
-                question: "What is the crystal system of Spinel?",
-                options: ["Orthorhombic", "Trigonal", "Hexagonal", "Cubic"],
-                correct: "Cubic",
-                explanation: "Answer: Cubic crystal system."
-            },
-            {
-                gemstone: "Fluorite",
-                question: "What is the crystal system of Fluorite?",
-                options: ["Monoclinic", "Triclinic", "Cubic", "Tetragonal"],
-                correct: "Cubic",
-                explanation: "Answer: Cubic crystal system."
-            },
-            {
-                gemstone: "Zircon",
-                question: "What is the crystal system of Zircon?",
-                options: ["Hexagonal", "Trigonal", "Tetragonal", "Monoclinic"],
-                correct: "Tetragonal",
-                explanation: "Answer: Tetragonal crystal system."
-            },
-            {
-                gemstone: "Rutile",
-                question: "What is the crystal system of Rutile?",
-                options: ["Cubic", "Trigonal", "Tetragonal", "Orthorhombic"],
-                correct: "Tetragonal",
-                explanation: "Answer: Tetragonal crystal system."
-            },
-            {
-                gemstone: "Orthoclase Feldspar",
-                question: "What is the crystal system of Orthoclase Feldspar?",
-                options: ["Monoclinic", "Trigonal", "Orthorhombic", "Hexagonal"],
-                correct: "Monoclinic",
-                explanation: "Answer: Monoclinic crystal system."
-            }
-        ];
+	const questions = [
+		{
+			gemstone: "Corundum",
+			question: "What is the crystal system of Corundum?",
+			options: ["Hexagonal", "Trigonal", "Tetragonal", "Orthorhombic"],
+			correct: "Trigonal",
+			explanation: "Answer: Trigonal crystal system."
+		},
+		{
+			gemstone: "Garnet",
+			question: "What is the crystal system of Garnet?",
+			options: ["Hexagonal", "Tetragonal", "Cubic", "Triclinic"],
+			correct: "Cubic",
+			explanation: "Answer: Cubic crystal system."
+		},
+		{
+			gemstone: "Diamond",
+			question: "What is the crystal system of Diamond?",
+			options: ["Hexagonal", "Cubic", "Trigonal", "Monoclinic"],
+			correct: "Cubic",
+			explanation: "Answer: Cubic crystal system."
+		},
+		{
+			gemstone: "Spinel",
+			question: "What is the crystal system of Spinel?",
+			options: ["Orthorhombic", "Trigonal", "Hexagonal", "Cubic"],
+			correct: "Cubic",
+			explanation: "Answer: Cubic crystal system."
+		},
+		{
+			gemstone: "Fluorite",
+			question: "What is the crystal system of Fluorite?",
+			options: ["Monoclinic", "Triclinic", "Cubic", "Tetragonal"],
+			correct: "Cubic",
+			explanation: "Answer: Cubic crystal system."
+		},
+		{
+			gemstone: "Sodalite",
+			question: "What is the crystal system of Sodalite?",
+			options: ["Cubic", "Trigonal", "Hexagonal", "Orthorhombic"],
+			correct: "Cubic",
+			explanation: "Answer: Cubic crystal system."
+		},
+		{
+			gemstone: "Pyrite",
+			question: "What is the crystal system of Pyrite?",
+			options: ["Trigonal", "Cubic", "Monoclinic", "Hexagonal"],
+			correct: "Cubic",
+			explanation: "Answer: Cubic crystal system."
+		},
+		{
+			gemstone: "Zircon",
+			question: "What is the crystal system of Zircon?",
+			options: ["Hexagonal", "Trigonal", "Tetragonal", "Monoclinic"],
+			correct: "Tetragonal",
+			explanation: "Answer: Tetragonal crystal system."
+		},
+		{
+			gemstone: "Rutile",
+			question: "What is the crystal system of Rutile?",
+			options: ["Cubic", "Trigonal", "Tetragonal", "Orthorhombic"],
+			correct: "Tetragonal",
+			explanation: "Answer: Tetragonal crystal system."
+		},
+		{
+			gemstone: "Orthoclase Feldspar",
+			question: "What is the crystal system of Orthoclase Feldspar?",
+			options: ["Monoclinic", "Trigonal", "Orthorhombic", "Hexagonal"],
+			correct: "Monoclinic",
+			explanation: "Answer: Monoclinic crystal system."
+		},
+		{
+			gemstone: "Diopside",
+			question: "What is the crystal system of Diopside?",
+			options: ["Hexagonal", "Cubic", "Monoclinic", "Orthorhombic"],
+			correct: "Monoclinic",
+			explanation: "Answer: Monoclinic crystal system."
+		},
+		{
+			gemstone: "Spodumene",
+			question: "What is the crystal system of Spodumene?",
+			options: ["Trigonal", "Monoclinic", "Cubic", "Tetragonal"],
+			correct: "Monoclinic",
+			explanation: "Answer: Monoclinic crystal system."
+		},
+		{
+			gemstone: "Malachite",
+			question: "What is the crystal system of Malachite?",
+			options: ["Monoclinic", "Trigonal", "Orthorhombic", "Hexagonal"],
+			correct: "Monoclinic",
+			explanation: "Answer: Monoclinic crystal system."
+		},
+		{
+			gemstone: "Nephrite",
+			question: "What is the crystal system of Nephrite?",
+			options: ["Orthorhombic", "Cubic", "Monoclinic", "Trigonal"],
+			correct: "Monoclinic",
+			explanation: "Answer: Monoclinic crystal system."
+		},
+		{
+			gemstone: "Plagioclase Feldspar",
+			question: "What is the crystal system of Plagioclase Feldspar?",
+			options: ["Cubic", "Trigonal", "Monoclinic", "Triclinic"],
+			correct: "Triclinic",
+			explanation: "Answer: Triclinic crystal system."
+		},
+		{
+			gemstone: "Axinite",
+			question: "What is the crystal system of Axinite?",
+			options: ["Trigonal", "Triclinic", "Hexagonal", "Orthorhombic"],
+			correct: "Triclinic",
+			explanation: "Answer: Triclinic crystal system."
+		},
+		{
+			gemstone: "Turquoise",
+			question: "What is the crystal system of Turquoise?",
+			options: ["Monoclinic", "Triclinic", "Cubic", "Hexagonal"],
+			correct: "Triclinic",
+			explanation: "Answer: Triclinic crystal system."
+		},
+		{
+			gemstone: "Rhodonite",
+			question: "What is the crystal system of Rhodonite?",
+			options: ["Orthorhombic", "Trigonal", "Triclinic", "Cubic"],
+			correct: "Triclinic",
+			explanation: "Answer: Triclinic crystal system."
+		}
+	];
 
         let shuffledQuestions = [];
         let currentQuestionIndex = 0;
